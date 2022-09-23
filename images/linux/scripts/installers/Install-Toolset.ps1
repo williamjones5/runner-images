@@ -32,7 +32,7 @@ Function Install-Asset {
 $ErrorActionPreference = "Stop"
 
 # Get toolset content
-$toolset = Get-Content -Path "$env:INSTALLER_SCRIPT_FOLDER/toolset-2004.json" -Raw
+$toolset = Get-Content -Path "./toolset-2004.json" -Raw
 
 $tools = ConvertFrom-Json -InputObject $toolset | Select-Object -ExpandProperty toolcache | Where-Object {$_.url -ne $null }
 
