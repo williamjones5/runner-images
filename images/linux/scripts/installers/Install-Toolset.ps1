@@ -14,9 +14,14 @@ Function Install-Asset {
     wget $ReleaseAsset.download_url -nv --retry-connrefused --tries=10
 
     Write-Host "Extract $($ReleaseAsset.filename) content..."
-    $assetFolderPath = Join-Path $env:INSTALLER_SCRIPT_FOLDER $($ReleaseAsset.filename)
+    $assetFolderPath = Join-Path './var/lib/waagent/custom-script/download/1/' $($ReleaseAsset.filename)
+    try{
     New-Item -ItemType Directory -Path $assetFolderPath
     tar -xzf $ReleaseAsset.filename -C $assetFolderPath
+    }
+    catch{
+    if($_.Exception -like '*item exists*') {
+    Write-Host "Item exists already. Moving on" }
 
     Write-Host "Invoke installation script..."
     Push-Location -Path $assetFolderPath
