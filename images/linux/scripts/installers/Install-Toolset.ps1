@@ -22,7 +22,7 @@ Function Install-Asset {
     catch{
     if($_.Exception -like '*item exists*') {
     Write-Host "Item exists already. Moving on" }
-
+    }
     Write-Host "Invoke installation script..."
     Push-Location -Path $assetFolderPath
     Invoke-Expression "bash ./setup.sh"
